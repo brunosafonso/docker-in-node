@@ -1,9 +1,12 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-`./build -t latest --all && \
- docker push zrpaplicacoes/docker-in-node:6.11.0-alpine && \
- docker push zrpaplicacoes/docker-in-node:6.11.0 && \
- docker push zrpaplicacoes/docker-in-node:latest && \
- git push origin master
-`
+code = <<-BASH
+./build --all && \
+docker push zrpaplicacoes/docker-in-node:6.11.0-alpine && \
+docker push zrpaplicacoes/docker-in-node:6.11.0 && \
+docker push zrpaplicacoes/docker-in-node:latest && \
+git push origin master
+BASH
+
+exec(code)

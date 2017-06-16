@@ -33,8 +33,8 @@ RUN set -ex; \
 RUN npm install -g yarn && npm upgrade -g yarn
 
 # install custom scripts into local binaries
-COPY alpine_rootfs/* /usr/local/bin/
-COPY shared/* /usr/local/bin
+COPY alpine_rootfs /usr/local/bin/
+COPY shared /usr/local/bin
 
 # run the app
 ENTRYPOINT ["/usr/local/bin/docker_entrypoint"]

@@ -4,31 +4,36 @@
 require 'optparse'
 require 'colorize'
 
-IMAGE = 'zrpaplicacoes/docker-in-node'
+IMAGE_NAME = 'zrpaplicacoes/docker-in-node'
 LATEST_VERSION = '6.11.0'
-VERSIONS = ['6.11.0-alpine', '6.11.0']
+
+VERSIONS = [
+  '6.11.0',
+  '6.11.0-alpine'
+].freeze
 
 def dockerfile(version)
   "node:#{version}.Dockerfile"
 end
 
-def tag(version, user_tag)
-  "#{IMAGE}:#{version}-#{user_tag}"
+def image_with_tag(version)
+  "#{IMAGE_NAME}:#{version}"
 end
 
-def build(node_version, tag, opts = {})
-  puts "Building #{tag(node_version, tag)} image..."
+def build(node_version, opts = {})
+  puts "Building #{image_with_tag(node_version)} image..."
+
   build_config = ['docker', 'build', opts[:quiet] ? '-q' : '',
                   '-f', dockerfile(node_version),
-                  '-t', tag(node_version, tag), '.']
+                  '-t', image_with_tag(node_version), '.']
 
-  build_config = build_config.reject(&:empty?)
-  system(*build_config)
+  # parse configs into executable format
+  system(*(build_config.reject(&:empty?)))
 
-  puts "Successfully built #{tag(node_version, tag)}".colorize(:green)
+  puts "Successfully built #{image_with_tag(node_version)}".colorize(:green)
 
-  if node_version == LATEST_VERSION
-    system('docker', 'tag', tag(node_version, tag), "#{IMAGE}:latest")
+  if node_version.eql?(LATEST_VERSION)
+    system('docker', 'tag', image_with_tag(node_version), "#{IMAGE_NAME}:latest")
   end
 end
 
@@ -38,19 +43,17 @@ config = {}
 OptionParser.new do |opt|
   opt.on('-a', '--all', 'Build all images') { |v| config[:all] = v }
   opt.on('-n', '--node NODE_VERSION', 'Node Version') { |o| config[:node_version] = o }
-  opt.on('-t', '--tag TAG', 'Tag') { |o| config[:tag] = o }
+  opt.on('-q', '--quiet', 'Proxy to docker build quiet') { |v| config[:quiet] = v }
 end.parse!
-
-config[:tag] ||= 'nightly'
 
 # Build the image
 if config[:all]
   puts "WARN - Ignoring provided node version #{config[:node_version]}".colorize(:red) if config[:node_version]
   VERSIONS.each do |node_version|
-    build(node_version, config[:tag], quiet: true)
+    build(node_version, config)
     puts "\n" unless node_version == VERSIONS.last
   end
 else
   config[:node_version] ||= '6.11.0'
-  build(config[:node_version], config[:tag])
+  build(config[:node_version], config)
 end

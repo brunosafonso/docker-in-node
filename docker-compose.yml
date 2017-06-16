@@ -1,0 +1,31 @@
+version: '3'
+
+volumes:
+  dynamodb-data:
+    driver: local
+
+services:
+  db:
+    hostname: db
+    image: cnadiminti/dynamodb-local
+    ports:
+      - "8000:8000"
+    volumes:
+      - dynamodb-data:/dynamodb_local_db
+
+  app:
+    hostname: app
+    image: zrpaplicacoes/docker-in-node:6.11.0
+    stdin_open: true
+    tty: true
+    command: npm start
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    volumes:
+      - .:/home/node/app
+    environment:
+      NODE_ENV: development
+    ports:
+      - "8100:8100"
+      - "35729:35729"

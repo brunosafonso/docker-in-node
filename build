@@ -1,0 +1,56 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'optparse'
+require 'colorize'
+
+IMAGE = 'zrpaplicacoes/docker-in-node'
+LATEST_VERSION = '6.11.0'
+VERSIONS = ['6.11.0-alpine', '6.11.0']
+
+def dockerfile(version)
+  "node:#{version}.Dockerfile"
+end
+
+def tag(version, user_tag)
+  "#{IMAGE}:#{version}-#{user_tag}"
+end
+
+def build(node_version, tag, opts = {})
+  puts "Building #{tag(node_version, tag)} image..."
+  build_config = ['docker', 'build', opts[:quiet] ? '-q' : '',
+                  '-f', dockerfile(node_version),
+                  '-t', tag(node_version, tag), '.']
+
+  build_config = build_config.reject(&:empty?)
+  system(*build_config)
+
+  puts "Successfully built #{tag(node_version, tag)}".colorize(:green)
+
+  if node_version == LATEST_VERSION
+    system('docker', 'tag', tag(node_version, tag), "#{IMAGE}:latest")
+  end
+end
+
+# Parse user params
+config = {}
+
+OptionParser.new do |opt|
+  opt.on('-a', '--all', 'Build all images') { |v| config[:all] = v }
+  opt.on('-n', '--node NODE_VERSION', 'Node Version') { |o| config[:node_version] = o }
+  opt.on('-t', '--tag TAG', 'Tag') { |o| config[:tag] = o }
+end.parse!
+
+config[:tag] ||= 'nightly'
+
+# Build the image
+if config[:all]
+  puts "WARN - Ignoring provided node version #{config[:node_version]}".colorize(:red) if config[:node_version]
+  VERSIONS.each do |node_version|
+    build(node_version, config[:tag], quiet: true)
+    puts "\n" unless node_version == VERSIONS.last
+  end
+else
+  config[:node_version] ||= '6.11.0'
+  build(config[:node_version], config[:tag])
+end

@@ -5,6 +5,8 @@ code = <<-BASH
 ./build --all && \
 docker push zrpaplicacoes/docker-in-node:6.11.0-alpine && \
 docker push zrpaplicacoes/docker-in-node:6.11.0 && \
+docker push zrpaplicacoes/docker-in-node:6.11.2-alpine && \
+docker push zrpaplicacoes/docker-in-node:6.11.2 && \
 docker push zrpaplicacoes/docker-in-node:latest && \
 git push origin master
 BASH

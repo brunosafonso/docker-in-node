@@ -2,7 +2,7 @@
 FROM node:6.11.3-alpine
 
 # Maintainer Information
-MAINTAINER ZRP Aplicações Informáticas LTDA - ME <zrp@zrp.com.br>
+LABEL maintainer="ZRP Aplicações Informáticas LTDA - ME <zrp@zrp.com.br>"
 LABEL vendor="ZRP Aplicações Informáticas LTDA - ME"
 LABEL license="GPLv3"
 
@@ -10,7 +10,7 @@ LABEL license="GPLv3"
 RUN mkdir -p /home/node/app
 WORKDIR /home/node/app
 
-ENV NODEJS_VERSION="6.11.2" \
+ENV NODEJS_VERSION="6.11.3" \
     GOSU_VERSION="1.10" \
     APP_PATH=/home/node \
     # extend path to read from local binaries and project binaries

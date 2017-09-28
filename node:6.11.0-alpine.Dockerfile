@@ -2,7 +2,7 @@
 FROM node:6.11.0-alpine
 
 # Maintainer Information
-MAINTAINER ZRP Aplicações Informáticas LTDA - ME <zrp@zrp.com.br>
+LABEL maintainer="ZRP Aplicações Informáticas LTDA - ME <zrp@zrp.com.br>"
 LABEL vendor="ZRP Aplicações Informáticas LTDA - ME"
 LABEL license="GPLv3"
 

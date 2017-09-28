@@ -5,13 +5,15 @@ require 'optparse'
 require 'colorize'
 
 IMAGE_NAME = 'zrpaplicacoes/docker-in-node'
-LATEST_VERSION = '6.11.2'
+LATEST_VERSION = '6.11.3'
 
 VERSIONS = [
   '6.11.0',
   '6.11.2',
+  '6.11.3',
   '6.11.0-alpine',
-  '6.11.2-alpine'
+  '6.11.2-alpine',
+  '6.11.3-alpine'
 ].freeze
 
 def dockerfile(version)

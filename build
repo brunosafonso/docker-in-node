@@ -5,15 +5,17 @@ require 'optparse'
 require 'colorize'
 
 IMAGE_NAME = 'zrpaplicacoes/docker-in-node'
-LATEST_VERSION = '6.11.3'
+LATEST_VERSION = '6.12.1'
 
 VERSIONS = [
   '6.11.0',
   '6.11.2',
   '6.11.3',
+  '6.12.1',
   '6.11.0-alpine',
   '6.11.2-alpine',
-  '6.11.3-alpine'
+  '6.11.3-alpine',
+  '6.12.1-alpine',
 ].freeze
 
 def dockerfile(version)
@@ -58,6 +60,6 @@ if config[:all]
     puts "\n" unless node_version == VERSIONS.last
   end
 else
-  config[:node_version] ||= '6.11.0'
+  config[:node_version] ||= '6.12.1'
   build(config[:node_version], config)
 end

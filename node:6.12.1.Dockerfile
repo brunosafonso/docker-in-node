@@ -41,4 +41,4 @@ COPY shared /usr/local/bin
 
 # run the app
 ENTRYPOINT ["/usr/local/bin/docker_entrypoint"]
-CMD ["node"]
+CMD ["bash"]

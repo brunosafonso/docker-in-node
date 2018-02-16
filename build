@@ -16,6 +16,7 @@ VERSIONS = [
   '6.11.2-alpine',
   '6.11.3-alpine',
   '6.12.1-alpine',
+  '8.9.4-alpine'
 ].freeze
 
 def dockerfile(version)
@@ -60,6 +61,6 @@ if config[:all]
     puts "\n" unless node_version == VERSIONS.last
   end
 else
-  config[:node_version] ||= '6.12.1'
+  config[:node_version] ||= '8.9.4-alpine'
   build(config[:node_version], config)
 end

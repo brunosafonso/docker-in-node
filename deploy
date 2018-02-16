@@ -11,6 +11,7 @@ docker push zrpaplicacoes/docker-in-node:6.11.3-alpine && \
 docker push zrpaplicacoes/docker-in-node:6.11.3 && \
 docker push zrpaplicacoes/docker-in-node:6.12.1-alpine && \
 docker push zrpaplicacoes/docker-in-node:6.12.1 && \
+docker push zrpaplicacoes/docker-in-node:8.9.4-alpine && \
 docker push zrpaplicacoes/docker-in-node:latest && \
 git push origin master
 BASH

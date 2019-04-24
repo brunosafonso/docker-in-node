@@ -24,3 +24,10 @@ Before starting running your container, ensure to provide to docker run your use
 
 *   zrpaplicacoes/docker-in-node:6.11.0-alpine
 *   zrpaplicacoes/docker-in-node:6.11.0
+*   zrpaplicacoes/docker-in-node:6.11.2-alpine
+*   zrpaplicacoes/docker-in-node:6.11.2
+*   zrpaplicacoes/docker-in-node:6.12.1-alpine
+*   zrpaplicacoes/docker-in-node:6.12.1
+*   zrpaplicacoes/docker-in-node:8.9.4-alpine
+*   zrpaplicacoes/docker-in-node:10.15.3-alpine
+*   zrpaplicacoes/docker-in-node:12.0.0-alpine

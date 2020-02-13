@@ -31,3 +31,5 @@ Before starting running your container, ensure to provide to docker run your use
 *   zrpaplicacoes/docker-in-node:8.9.4-alpine
 *   zrpaplicacoes/docker-in-node:10.15.3-alpine
 *   zrpaplicacoes/docker-in-node:12.0.0-alpine
+*   zrpaplicacoes/docker-in-node:12.15.0-alpine
+
